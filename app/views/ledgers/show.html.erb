@@ -1,0 +1,16 @@
+<p>
+  <strong>İncome:</strong>
+  <%= @ledger.income %>
+</p>
+ 
+<p>
+  <strong>Expense:</strong>
+  <%= @ledger.expense %>
+</p>
+
+<p>
+  <strong>Balance:</strong>
+  <%= @ledger.income - @ledger.expense %>
+</p>
+
+<%= link_to 'Back', ledgers_path %>

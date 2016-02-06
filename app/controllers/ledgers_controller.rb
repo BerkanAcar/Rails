@@ -1,5 +1,6 @@
 class LedgersController < ApplicationController
-	before_action :set_ledger, only:[:show, :edit, :update, :destroy]
+  before_action :authenticate_user!
+  before_action :set_ledger, only:[:show, :edit, :update, :destroy]
   def index
     @ledgers =Ledger.all
   end
@@ -8,7 +9,7 @@ class LedgersController < ApplicationController
   end
 
   def create
-  	@ledger =Ledger.new(ledger_params)
+  	@ledger = Ledger.new(ledger_params)
   	if	@ledger.save
   		redirect_to @ledger
   	else
@@ -17,6 +18,8 @@ class LedgersController < ApplicationController
   end
 
   def show
+    if current_user.id = session.id
+    end
   end
 
   def edit

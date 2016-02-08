@@ -1,10 +1,18 @@
 <% if user_signed_in? %>
-	Welcome <%= current_user.try(:email) %><br/>
+	Welcome <b><%= current_user.try(:name).upcase %></b><br/>
 	<%= link_to 'New Ledger', new_ledger_path %>
 
-<%= link_to 'Show Ledgers', ledgers_path %>
+	<%= link_to 'Show Ledgers', ledgers_path %>
+
+	<%= link_to 'Edit Profile', edit_user_path(current_user) %>
 
 	<%= link_to 'Log out', destroy_user_session_path, method: :delete %>
+
+<% elsif admin_signed_in? %>
+	Welcome <%= current_admin.try(:email) %><br/>
+	<%= link_to 'Log out', destroy_admin_session_path, method: :delete %>
+	<%= link_to 'Users', users_index_path %>
+		
 <% else %>
 	<%= link_to 'Home page', root_path %>
 

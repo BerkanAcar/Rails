@@ -1,16 +1,19 @@
 class LedgersController < ApplicationController
-  before_action :authenticate_user!
+  if @current_user
+    before_action :authenticate_user!
+  end
   before_action :set_ledger, only:[:show, :edit, :update, :destroy]
   def index
-    @ledgers =Ledger.where(id: current_user.id).all
+    @ledgers = Ledger.where(user_id: current_user.id).all
   end
+  
   def new
 		@ledger = Ledger.new
   end
 
   def create
   	@ledger = Ledger.new(ledger_params)
-  	@ledger.id = current_user.id
+  	@ledger.user_id = current_user.id
     if	@ledger.save
   		redirect_to @ledger
   	else
@@ -19,7 +22,7 @@ class LedgersController < ApplicationController
   end
 
   def show
-    if @ledger.id == current_user.id
+    if @ledger.user_id == current_user.id
       return @ledger
     else
       redirect_to root_path
@@ -48,6 +51,6 @@ class LedgersController < ApplicationController
   end
 
   def ledger_params
-  	params.require(:ledger).permit(:income, :expense)
+  	params.require(:ledger).permit(:income, :expense, :user_id)
   end
 end

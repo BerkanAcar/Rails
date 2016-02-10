@@ -1,5 +1,6 @@
 source 'https://rubygems.org'
-
+#bootsrap
+gem 'bootstrap'
 #devise
 gem 'devise'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'

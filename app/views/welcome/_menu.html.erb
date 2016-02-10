@@ -1,22 +1,27 @@
-<% if user_signed_in? %>
-	Welcome <b><%= current_user.try(:name).upcase %></b><br/>
-	<%= link_to 'New Ledger', new_ledger_path %>
+<nav class="navbar navbar-default" >
+	<form class="navbar-form navbar-right" >
+		<div class="btn container-fluid">
+			<ul class="nav navbar-nav">
+				<% if user_signed_in? %>
+					<li><%= link_to 'Home page', root_path %></li>
+					
+					<li><%= link_to 'New Ledger', new_ledger_path %></li>
 
-	<%= link_to 'Show Ledgers', ledgers_path %>
+					<li><%= link_to 'Show Ledgers', ledgers_path %></li>
 
-	<%= link_to 'Edit Profile', edit_user_path(current_user) %>
+					<li><%= link_to 'Edit Profile', edit_user_registration_path %></li>
 
-	<%= link_to 'Log out', destroy_user_session_path, method: :delete %>
+					<li><%= link_to 'Log out', destroy_user_session_path, method: :delete %></li>
+				<% elsif admin_signed_in? %>
+					<li><%= link_to 'Users', user_registration_path %></li>
+					
+					<li><%= link_to 'Log out', destroy_admin_session_path, method: :delete %></li>
+				<% else %>				
+					<li><%= link_to 'Sign in', new_user_session_path %></li>
 
-<% elsif admin_signed_in? %>
-	Welcome <%= current_admin.try(:email) %><br/>
-	<%= link_to 'Log out', destroy_admin_session_path, method: :delete %>
-	<%= link_to 'Users', users_index_path %>
-		
-<% else %>
-	<%= link_to 'Home page', root_path %>
-
-	<%= link_to 'Sign in', new_user_session_path %>
-	
-	<%= link_to 'Sign up', new_user_registration_path %>
-<% end %>
+					<li><%= link_to 'Sign up', new_user_registration_path %></li>
+				<% end %>
+			</ul>
+		</div>
+	</form>
+</nav>

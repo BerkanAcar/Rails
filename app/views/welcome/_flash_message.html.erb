@@ -1,0 +1,11 @@
+<% [:notice, :error, :alert].each do |level| %>
+ <% unless flash[level].blank? %>
+ 	<div class="span12">
+	 <% if user_signed_in? %>
+	  Welcome <b><%= current_user.try(:name) %></b></br>
+	 <% elsif admin_signed_in? %>
+	 	Welcome <%= current_admin.try(:name) %><br/>
+	 <% end %>
+ 	</div>
+ <% end %>
+<% end %>
